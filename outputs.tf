@@ -1,3 +1,9 @@
 output "fqdn" {
-  value = "${aws_route53_record.dns_record.fqdn}"
+  value = "${element(
+    compact(
+        concat(
+            aws_route53_record.dns_record.*.fqdn,
+            aws_route53_record.alb_alias.*.fqdn
+        )
+    ), 0)}"
 }
