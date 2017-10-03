@@ -18,3 +18,8 @@ variable "ttl" {
   description = "The TTL for the dns record"
   default     = 60
 }
+
+variable "alb_zone_id" {
+  description = "The Route53 zone id of the ALB to create an alias for"
+  default     = ""
+}
