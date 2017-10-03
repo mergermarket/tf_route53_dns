@@ -15,7 +15,7 @@ output "rendered" {
 }
 
 resource "aws_route53_record" "dns_record" {
-  count = "${var.alb_zone_id == "" ? 1 : 0}"
+  count = "${1 - var.alias}"
 
   zone_id = "${data.aws_route53_zone.dns_domain.zone_id}"
   name    = "${var.env == "live" ? "${var.name}" : "${var.env}-${var.name}"}.${data.template_file.domain.rendered}"
@@ -26,7 +26,7 @@ resource "aws_route53_record" "dns_record" {
 }
 
 resource "aws_route53_record" "alb_alias" {
-  count = "${var.alb_zone_id == "" ? 0 : 1}"
+  count = "${var.alias}"
 
   zone_id = "${data.aws_route53_zone.dns_domain.zone_id}"
   name    = "${var.env == "live" ? "${var.name}" : "${var.env}-${var.name}"}.${data.template_file.domain.rendered}"
