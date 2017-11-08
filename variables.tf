@@ -28,9 +28,3 @@ variable "alb_zone_id" {
   description = "The Route53 zone id of the ALB to create an alias for"
   default     = ""
 }
-
-variable "prevent_destroy" {
-  description = "Prevent accidental deletion - set to false before removal to allow it"
-  type        = "string"
-  default     = "true"
-}
