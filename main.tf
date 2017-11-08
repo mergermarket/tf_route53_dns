@@ -1,9 +1,10 @@
 data "aws_route53_zone" "dns_domain" {
-  name  = "${data.template_file.domain.rendered}"
+  name = "${data.template_file.domain.rendered}"
 }
 
 data "template_file" "domain" {
   template = "$${env == "live" ? "$${domain}" : "dev.$${domain}"}."
+
   vars {
     env    = "${var.env}"
     domain = "${var.domain}"
@@ -23,6 +24,10 @@ resource "aws_route53_record" "dns_record" {
   type    = "CNAME"
   records = ["${var.target}"]
   ttl     = "${var.ttl}"
+
+  lifecycle {
+    prevent_destroy = "${var.prevent_destroy}"
+  }
 }
 
 resource "aws_route53_record" "alb_alias" {
@@ -36,5 +41,9 @@ resource "aws_route53_record" "alb_alias" {
     name                   = "${var.target}"
     zone_id                = "${var.alb_zone_id}"
     evaluate_target_health = true
+  }
+
+  lifecycle {
+    prevent_destroy = "${var.prevent_destroy}"
   }
 }
