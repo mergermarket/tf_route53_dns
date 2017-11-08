@@ -26,7 +26,7 @@ resource "aws_route53_record" "dns_record" {
   ttl     = "${var.ttl}"
 
   lifecycle {
-    prevent_destroy = "${var.prevent_destroy}"
+    prevent_destroy = true
   }
 }
 
@@ -44,6 +44,6 @@ resource "aws_route53_record" "alb_alias" {
   }
 
   lifecycle {
-    prevent_destroy = "${var.prevent_destroy}"
+    prevent_destroy = true
   }
 }
