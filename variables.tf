@@ -28,3 +28,9 @@ variable "alb_zone_id" {
   description = "The Route53 zone id of the ALB to create an alias for"
   default     = ""
 }
+
+variable "dev_subdomain" {
+  description = "Whether to use the dev. subdomain convention for domains"
+  type        = "string"
+  default     = "true"
+}
