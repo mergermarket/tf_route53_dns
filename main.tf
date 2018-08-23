@@ -1,4 +1,4 @@
-local {
+locals {
   zone_prefix = "${var.dev_subdomain == "true" && var.env != "live" ? "dev." : ""}"
   zone = "${local.zone_prefix}${var.domain}"
   name = "${var.env == "live" ? "" : "${var.env}-"}${var.name}"
