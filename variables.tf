@@ -28,3 +28,9 @@ variable "alb_zone_id" {
   description = "The Route53 zone id of the ALB to create an alias for"
   default     = ""
 }
+
+variable depends_on {
+  description = "Emulate depends_on"
+  type        = "list",
+  default     = []
+}
