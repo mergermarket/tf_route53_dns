@@ -42,8 +42,5 @@ resource "aws_route53_record" "alb_alias" {
     zone_id                = "${var.alb_zone_id}"
     evaluate_target_health = true
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
+  
 }
