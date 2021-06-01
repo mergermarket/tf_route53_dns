@@ -16,7 +16,7 @@ output "rendered" {
 }
 
 resource "aws_route53_record" "dns_record" {
-  count = "${1 - var.alias}"
+  count = "${var.alias} == "0" ? 1 : 0"
 
   zone_id = "${data.aws_route53_zone.dns_domain.zone_id}"
   name    = "${var.env == "live" ? "${var.name}" : "${var.env}-${var.name}"}.${data.template_file.domain.rendered}"
@@ -31,7 +31,7 @@ resource "aws_route53_record" "dns_record" {
 }
 
 resource "aws_route53_record" "alb_alias" {
-  count = "${var.alias}"
+  count = "${var.alias} == "1" ? 1 : 0"
 
   zone_id = "${data.aws_route53_zone.dns_domain.zone_id}"
   name    = "${var.env == "live" ? "${var.name}" : "${var.env}-${var.name}"}.${data.template_file.domain.rendered}"
@@ -42,5 +42,5 @@ resource "aws_route53_record" "alb_alias" {
     zone_id                = "${var.alb_zone_id}"
     evaluate_target_health = true
   }
-  
+
 }
